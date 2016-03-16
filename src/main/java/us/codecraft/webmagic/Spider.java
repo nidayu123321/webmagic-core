@@ -12,6 +12,7 @@ import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.pipeline.ResultItemsCollectorPipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.processor.example.HtmlPageProcessor;
 import us.codecraft.webmagic.scheduler.QueueScheduler;
 import us.codecraft.webmagic.scheduler.Scheduler;
 import us.codecraft.webmagic.thread.CountableThreadPool;
@@ -128,6 +129,12 @@ public class Spider implements Runnable, Task {
         this.pageProcessor = pageProcessor;
         this.site = pageProcessor.getSite();
         this.startRequests = pageProcessor.getSite().getStartRequests();
+    }
+
+    public Spider(){
+        this.pageProcessor = new HtmlPageProcessor();
+        this.site = Site.me().setRetryTimes(3).setSleepTime(300);
+        this.startRequests = this.site.getStartRequests();
     }
 
     /**

@@ -24,9 +24,20 @@
         <processorPath useClasspath="true" />
         <module name="webmagic-core" />
       </profile>
+      <profile default="false" name="Annotation profile for forger" enabled="true">
+        <sourceOutputDir name="target\generated-sources\annotations" />
+        <sourceTestOutputDir name="target\generated-test-sources\test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="forger" target="1.6" />
+      <module name="webmagic-admin" target="1.5" />
+      <module name="webmagic-avalon" target="1.5" />
+      <module name="webmagic-avalon-common" target="1.5" />
       <module name="webmagic-core" target="1.6" />
+      <module name="webmagic-worker" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

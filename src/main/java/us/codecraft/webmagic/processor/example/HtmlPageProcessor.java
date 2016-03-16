@@ -16,7 +16,7 @@ import us.codecraft.webmagic.utils.RegexPaserUtil;
  */
 public class HtmlPageProcessor implements PageProcessor {
 
-    private Site site = Site.me().setRetryTimes(3).setSleepTime(0);
+    private Site site = Site.me().setDomain("passport.17500.cn");
 
     @Override
     public void process(Page page) {
@@ -33,8 +33,7 @@ public class HtmlPageProcessor implements PageProcessor {
     }
 
     public static void main(String[] args) {
-        PageProcessor pageProcessor = new HtmlPageProcessor();
-        Spider spider = Spider.create(pageProcessor);
+        Spider spider = Spider.create(new HtmlPageProcessor());
         Request request = new Request();
         request.setUrl("https://passport.17500.cn/check/input2.html");
         request.setMethod("POST");
@@ -42,4 +41,5 @@ public class HtmlPageProcessor implements PageProcessor {
         spider.addRequest(request);
         spider.run();
     }
+
 }
