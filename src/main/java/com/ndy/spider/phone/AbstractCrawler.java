@@ -5,6 +5,7 @@ import org.apache.http.message.BasicNameValuePair;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.processor.observer.ProcessorObserver;
 
 /**
  * @author nidayu
@@ -16,14 +17,14 @@ public class AbstractCrawler {
     protected Spider spider;
 
     public void getUrl(String url){
-        getUrl(url, null, null);
+        getUrl(url, null, null, null);
     }
 
-    public void getUrl(String url, String referer, String[][] headers){
-        getUrl(url, referer, null, headers);
+    public void getUrl(String url, String referer, String[][] headers, ProcessorObserver observer){
+        getUrl(url, referer, null, headers, observer);
     }
 
-    public void getUrl(String url, String referer, String[] param, String[][] headers){
+    public void getUrl(String url, String referer, String[] param, String[][] headers, ProcessorObserver observer){
         Site site = spider.getSite();
         Request request = new Request();
         request.setMethod("GET");
@@ -39,14 +40,17 @@ public class AbstractCrawler {
                 site.addHeader(headers[i][0], headers[i][1]);
             }
         }
+        if (observer != null){
+            request.addObserver(observer);
+        }
         spider.addRequest(request);
     }
 
-    public void postUrl(String url, String referer, String[][] nameValuePairs, String[][] headers){
-        postUrl(url, referer, null, nameValuePairs, headers);
+    public void postUrl(String url, String referer, String[][] nameValuePairs, String[][] headers, ProcessorObserver observer){
+        postUrl(url, referer, null, nameValuePairs, headers, observer);
     }
 
-    public void postUrl(String url, String referer, String[] param, String[][] nameValuePairs, String[][] headers){
+    public void postUrl(String url, String referer, String[] param, String[][] nameValuePairs, String[][] headers, ProcessorObserver observer){
         Site site = spider.getSite();
         Request request = new Request();
         request.setMethod("POST");
@@ -68,6 +72,9 @@ public class AbstractCrawler {
             for (int i = 0; i < headers.length; i++){
                 site.addHeader(headers[i][0], headers[i][1]);
             }
+        }
+        if (observer != null){
+            request.addObserver(observer);
         }
         spider.addRequest(request);
     }

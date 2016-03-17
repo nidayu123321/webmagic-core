@@ -1,8 +1,11 @@
 package us.codecraft.webmagic;
 
+import us.codecraft.webmagic.processor.observer.ProcessorObserver;
 import us.codecraft.webmagic.utils.Experimental;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,27 @@ public class Request implements Serializable {
     private String url;
 
     private String method;
+
+
+    // 添加观察者！在spider.start()中进行notifyObserver
+    private Collection<ProcessorObserver> observerList;
+
+    public void addObserver(ProcessorObserver processorObserver){
+        if (observerList == null){
+            observerList = new ArrayList<ProcessorObserver>();
+        }
+        observerList.add(processorObserver);
+    }
+
+    public void notifyObserver(Page page) {
+        for (ProcessorObserver observer : observerList){
+            try {
+                observer.afterRequest(page);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * Store additional information in extras.

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../jsoup-learning/jsoup.iml" filepath="$PROJECT_DIR$/../../jsoup-learning/jsoup.iml" />
       <module fileurl="file://$PROJECT_DIR$/webmagic-core.iml" filepath="$PROJECT_DIR$/webmagic-core.iml" />
     </modules>
   </component>

@@ -7,28 +7,26 @@ import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
-import us.codecraft.webmagic.utils.RegexPaserUtil;
 
 /**
  * @author nidayu
- * @Description: 测试手机号是否注册过乐彩网
+ * @Description: 自己定制一个PageProcessor，用于Spider()方法使用！
  * @date 2016/3/16
  */
 public class HtmlPageProcessor implements PageProcessor {
 
-    private Site site = Site.me().setDomain("passport.17500.cn");
+    private Site site = Site.me().setRetryTimes(3).setSleepTime(300);
 
     @Override
     public void process(Page page) {
-        System.out.println("start spider...");
-        System.out.println(RegexPaserUtil.unicodeDecode(page.getRawText()));
+
     }
 
     @Override
     public Site getSite() {
-        site.addHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-        site.addHeader("X-Requested-With", "XMLHttpRequest");
-        site.addHeader("Referer", "https://passport.17500.cn/reg/index/redirect/http_referer.html");
+//        site.addHeader("Accept", "application/json, text/javascript, */*; q=0.01");
+//        site.addHeader("X-Requested-With", "XMLHttpRequest");
+//        site.addHeader("Referer", "https://passport.17500.cn/reg/index/redirect/http_referer.html");
         return site;
     }
 
