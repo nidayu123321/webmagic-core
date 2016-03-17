@@ -1,4 +1,4 @@
-package us.codecraft.webmagic.utils;
+package com.ndy.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;

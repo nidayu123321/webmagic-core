@@ -2,7 +2,7 @@ package com.ndy.spider.phone;
 
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.utils.RegexPaserUtil;
+import com.ndy.util.RegexPaserUtil;
 
 /**
  * @author nidayu
