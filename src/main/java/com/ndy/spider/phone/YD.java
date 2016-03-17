@@ -17,7 +17,7 @@ public class YD extends AbstractCrawler{
     public YD(Spider spider, String phoneNo, String password, String authCode){
         this.spider = spider;
         spider.getSite().setDomain("passport.17500.cn");
-        spider.getSite().setHttpProxy(new HttpHost("182.92.129.13", 7077));
+//        spider.getSite().setHttpProxy(new HttpHost("182.92.129.13", 7077));
         this.phoneNo = phoneNo;
         this.password = password;
         this.authCode = authCode;

@@ -15,6 +15,14 @@ public class AbstractCrawler {
 
     protected Spider spider;
 
+    public void getUrl(String url){
+        getUrl(url, null, null);
+    }
+
+    public void getUrl(String url, String referer, String[][] headers){
+        getUrl(url, referer, null, headers);
+    }
+
     public void getUrl(String url, String referer, String[] param, String[][] headers){
         Site site = spider.getSite();
         Request request = new Request();
@@ -32,6 +40,10 @@ public class AbstractCrawler {
             }
         }
         spider.addRequest(request);
+    }
+
+    public void postUrl(String url, String referer, String[][] nameValuePairs, String[][] headers){
+        postUrl(url, referer, null, nameValuePairs, headers);
     }
 
     public void postUrl(String url, String referer, String[] param, String[][] nameValuePairs, String[][] headers){
