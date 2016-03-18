@@ -6,6 +6,7 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/../webmagic-avalon/webmagic-admin" />
     <file type="web" url="file://$PROJECT_DIR$/../webmagic-avalon/webmagic-worker" />
+    <file type="web" url="file://$PROJECT_DIR$" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

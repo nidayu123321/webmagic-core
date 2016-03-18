@@ -25,7 +25,9 @@ public class LT extends AbstractCrawler{
     }
 
     private void login(){
-        String url = "https://uac.10010.com/portal/Service/MallLogin?callback=jQuery17203066010744048846_1451617005181&req_time="+System.currentTimeMillis()+"&redirectURL=http%3A%2F%2Fwww.10010.com&userName="+phoneNo+"&password="+password+"&pwdType=01&productType=01&redirectType=01&rememberMe=1&_="+System.currentTimeMillis();
+        String url = "https://uac.10010.com/portal/Service/MallLogin?callback=jQuery17203066010744048846_1451617005181&req_time="
+                +timeMillis()+"&redirectURL=http%3A%2F%2Fwww.10010.com&userName="+phoneNo+"&password="+password
+                +"&pwdType=01&productType=01&redirectType=01&rememberMe=1&_="+timeMillis();
         getUrl(url, "https://uac.10010.com/portal/homeLogin", null, new CommonObserver(){
             @Override
             public void afterRequest(Page page) throws Exception {

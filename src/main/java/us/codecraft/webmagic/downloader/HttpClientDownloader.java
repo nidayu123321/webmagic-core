@@ -3,6 +3,7 @@ package us.codecraft.webmagic.downloader;
 import com.google.common.collect.Sets;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -95,6 +96,8 @@ public class HttpClientDownloader extends AbstractDownloader {
             if (statusAccept(acceptStatCode, statusCode)) {
                 Page page = handleResponse(request, charset, httpResponse, task);
                 onSuccess(request);
+                //在当前request执行完毕之后，添加监听！
+                request.notifyObserver(page);
                 return page;
             } else {
                 logger.warn("code error " + statusCode + "\t" + request.getUrl());
@@ -179,9 +182,14 @@ public class HttpClientDownloader extends AbstractDownloader {
     }
 
     protected Page handleResponse(Request request, String charset, HttpResponse httpResponse, Task task) throws IOException {
-        String content = getContent(charset, httpResponse);
         Page page = new Page();
-        page.setRawText(content);
+        if (request.getExtra("INPUTSTREAM") != null){
+            HttpEntity httpEntity = httpResponse.getEntity();
+            page.setInputStream(httpEntity.getContent());
+        }else {
+            String content = getContent(charset, httpResponse);
+            page.setRawText(content);
+        }
         page.setUrl(new PlainText(request.getUrl()));
         page.setRequest(request);
         page.setStatusCode(httpResponse.getStatusLine().getStatusCode());

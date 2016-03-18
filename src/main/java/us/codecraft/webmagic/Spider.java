@@ -426,8 +426,6 @@ public class Spider implements Runnable, Task {
             return;
         }
         pageProcessor.process(page);
-        //添加监听！
-        request.notifyObserver(page);
         extractAndAddRequests(page, spawnUrl);
         if (!page.getResultItems().isSkip()) {
             for (Pipeline pipeline : pipelines) {

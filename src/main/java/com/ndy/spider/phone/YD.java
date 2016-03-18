@@ -1,8 +1,8 @@
 package com.ndy.spider.phone;
 
+import com.ndy.util.RegexPaserUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Spider;
-import com.ndy.util.RegexPaserUtil;
 
 /**
  * @author nidayu
@@ -17,11 +17,33 @@ public class YD extends AbstractCrawler{
 
     public YD(Spider spider, String phoneNo, String password, String authCode){
         this.spider = spider;
-        spider.getSite().setDomain("passport.17500.cn");
+        spider.getSite().setDomain("10086.cn");
+        spider.getSite().setCharset("utf-8");
 //        spider.getSite().setHttpProxy(new HttpHost("182.92.129.13", 7077));
         this.phoneNo = phoneNo;
         this.password = password;
         this.authCode = authCode;
+    }
+
+    private void getImg(final String filePath){
+        String info = saveFileTest("https://login.10086.cn/captchazh.htm?type=05&timestamp=" + timeMillis(),
+                "https://login.10086.cn/login.html?channelID=12003&backUrl=http://shop.10086.cn/i/",
+                "login.10086.cn", "aa");
+        System.out.println(info);
+//        getUrl("https://login.10086.cn/needVerifyCode.htm?accountType=01&account="+phoneNo+"&timestamp="+timeMillis(),
+//                "https://login.10086.cn/login.html?channelID=12003&backUrl=http://shop.10086.cn/i/", null, null, new CommonObserver(){
+//            @Override
+//            public void afterRequest(Page page) throws Exception {
+//                String html = page.getRawText();
+//                System.out.println(html);
+//                if (html != null && html.contains("{\"needVerifyCode\":\"1\"}")){
+//                    String info = saveFileTest("https://login.10086.cn/captchazh.htm?type=05&timestamp=" + timeMillis(),
+//                            "https://login.10086.cn/login.html?channelID=12003&backUrl=http://shop.10086.cn/i/",
+//                            "login.10086.cn", "aa");
+//                    System.out.println(info);
+//                }
+//            }
+//        });
     }
 
     private void test(){
@@ -38,8 +60,12 @@ public class YD extends AbstractCrawler{
 
     public static void main(String[] args){
         Spider spider = new Spider();
-        YD yd = new YD(spider, "18888888888", "", "");
-        yd.test();
+        YD yd = new YD(spider, "18317042860", "163163", null);
+        yd.getImg("c://a.png");
         spider.start();
+//        System.out.println("请输入验证码:");
+//        Scanner in = new Scanner(System.in);
+//        String authCode = in.nextLine();
+
     }
 }
