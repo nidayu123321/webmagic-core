@@ -92,9 +92,13 @@ public class AbstractCrawler {
         final String suffix = DateUtil.formatDate(new Date(), "MMdd");
 
         File file2 = new File(suffix);
-        if (!file2.exists() && !file2.isDirectory()) {
+        if (file2.exists()){
+            file2.delete();
             file2.mkdir();
         }
+//        if (!file2.exists() && !file2.isDirectory()) {
+//            file2.mkdir();
+//        }
         final String destfilename = suffix + "/"+ picName + ".jpg";
         Request req = new Request(url);
         req.setMethod("GET");
