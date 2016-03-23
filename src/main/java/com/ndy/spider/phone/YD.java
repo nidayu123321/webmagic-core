@@ -58,35 +58,37 @@ public class YD extends AbstractCrawler{
                         System.out.println(postResult);
                         if (postResult != null) {
                             JSONObject obj = new JSONObject(postResult);
-                            String artifact = obj.optString("artifact");
-                            String url = obj.optString("assertAcceptURL");
-                            url = url + "?backUrl=http://shop.10086.cn/i/&artifact=" + artifact;
-                            getUrl(url, null, null, new CommonObserver() {
-                                @Override
-                                public void afterRequest(Page page) throws Exception {
-                                    String url = "http://shop.10086.cn/i/?welcome=" + timeMillis();
-                                    getUrl(url, null, null, new CommonObserver(){
-                                        @Override
-                                        public void afterRequest(Page page) throws Exception {
-                                            final String param = DateUtil.formatDate(new Date(), "yyyyMMddHHmmsssss");
-                                            String url = "http://shop.10086.cn/i/v1/fee/real/" + phoneNo + "?time=" + param;
-                                            getUrl(url, null, null, new CommonObserver(){
-                                                @Override
-                                                public void afterRequest(Page page) throws Exception {
-                                                    String text =page.getRawText();
-                                                    JSONObject obj = new JSONObject(text);
-                                                    if (obj.optString("retCode").contains("000000")) {
-                                                        //成功
-                                                        System.out.println("登录成功");
-                                                        System.out.println(text);
+                            if (obj.optString("code").contains("0000")) {
+                                String artifact = obj.optString("artifact");
+                                String url = obj.optString("assertAcceptURL");
+                                url = url + "?backUrl=http://shop.10086.cn/i/&artifact=" + artifact;
+                                getUrl(url, null, null, new CommonObserver() {
+                                    @Override
+                                    public void afterRequest(Page page) throws Exception {
+                                        String url = "http://shop.10086.cn/i/?welcome=" + timeMillis();
+                                        getUrl(url, null, null, new CommonObserver() {
+                                            @Override
+                                            public void afterRequest(Page page) throws Exception {
+                                                final String param = DateUtil.formatDate(new Date(), "yyyyMMddHHmmsssss");
+                                                String url = "http://shop.10086.cn/i/v1/fee/real/" + phoneNo + "?time=" + param;
+                                                getUrl(url, null, null, new CommonObserver() {
+                                                    @Override
+                                                    public void afterRequest(Page page) throws Exception {
+                                                        String text = page.getRawText();
+                                                        JSONObject obj = new JSONObject(text);
+                                                        if (obj.optString("retCode").contains("000000")) {
+                                                            //成功
+                                                            System.out.println("登录成功");
+                                                            System.out.println(text);
 
+                                                        }
                                                     }
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
+                                                });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
                         }
                     }
                 });
